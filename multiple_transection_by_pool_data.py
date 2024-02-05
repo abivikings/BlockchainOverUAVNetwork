@@ -14,7 +14,7 @@ from store_data_in_db import *
 from functools import reduce
 
 
-def network(transaction_pool_len, nod, transaction_pool, directory_log, nodi, req_n, transaction_list_len, f_node_list):
+def network(transaction_pool_len, nod, transaction_pool, directory_log, nodi, req_n, transaction_list_len, f_node_list, datarate):
     Results = None
     wifi = ns.wifi.WifiHelper()
     wifiMac = ns.wifi.WifiMacHelper()
@@ -43,11 +43,11 @@ def network(transaction_pool_len, nod, transaction_pool, directory_log, nodi, re
     nodes = []
     status_nodes = []
 
-    minX = 245
+    minX = 100
     maxX = 200
-    minY = 245
+    minY = 100
     maxY = 200
-    minZ = 245
+    minZ = 100
     maxZ = 200
     
     area = (maxX - minX) * (maxY - minY)
@@ -90,7 +90,6 @@ def network(transaction_pool_len, nod, transaction_pool, directory_log, nodi, re
 
     payloadSize  = blockchain(transaction_pool_len, nod, transaction_pool, directory_log, nodi, req_n, transaction_list_len, f_node_list)
 
-    datarate = input("Data Rate : ")
     port = 9   # Discard port(RFC 863)
     onOffHelper = ns.applications.OnOffHelper("ns3::UdpSocketFactory",
                                   ns.network.Address(ns.network.InetSocketAddress(ns.network.Ipv4Address("10.0.0.1"), port)))
@@ -189,17 +188,16 @@ def network(transaction_pool_len, nod, transaction_pool, directory_log, nodi, re
     else:
         print (monitor.SerializeToXmlFile(Results, True, True))
 
-    if len(total_delay_list) > 0:
-        delay_count = reduce(lambda x, y: x + y, total_delay_list)
-        avg_delay = delay_count/len(total_delay_list)
-        
+    delay_count = reduce(lambda x, y: x + y, total_delay_list)
+    avg_delay = delay_count/len(total_delay_list)
     
-        throuhtput_count = reduce(lambda x, y: x + y, total_throughput_list)
-        throughtput = throuhtput_count/len(total_throughput_list)
-        
-        print("All nodes are in "+ str(area) + " m3 and height from ground " + str(height) + " m")
+    
+    throuhtput_count = reduce(lambda x, y: x + y, total_throughput_list)
+    throughtput = throuhtput_count/len(total_throughput_list)
+    
+    print("All nodes are in "+ str(area) + " m3 and height from ground " + str(height) + " m")
 
-        InserGraphData(nod, payloadSize, avg_delay, throughtput, transaction_list_len, datarate)
+    InserGraphData(nod, payloadSize, avg_delay, throughtput, transaction_list_len, datarate)
 
     return 0
 
@@ -209,7 +207,7 @@ def blockchain(transaction_pool_len, nod, transaction_pool, directory_log, nodi,
     nod, backboneNodes, throughtput, avg_delay = compute_blockchain(transaction_pool_len, nod, transaction_pool, directory_log, nodi, req_n, transaction_list_len, f_node_list)
 
         
-    csv_file_path = '/home/sojib/ns-allinone-3.36.1/ns-3.36.1/test_logs/blockchain_1.csv'  # Replace with the path to your folder containing CSV files
+    csv_file_path = '/home/nitolai/ns-allinone-3.36.1/ns-3.36.1/test_logs/blockchain_1.csv'  # Replace with the path to your folder containing CSV files
 
     if os.path.exists(csv_file_path):
         payloadSize = os.path.getsize(csv_file_path)
@@ -251,10 +249,11 @@ if __name__ == '__main__':
     transaction_pool_directory = open(directory_main+"/transaction_pool.log", "r")
     transaction_content = transaction_pool_directory.read()
 
-
+    num_tran = input("Enter number of transaction : ")
+    datarate = input("Enter Datarate : ")
+    
     # transaction_list = ConvertToList(transaction_content)
-    trasaction_input = input("Number of transaction : ")
-    transaction_list = [i for i in range(0, int(trasaction_input))]
+    transaction_list = [i for i in range(0, int(num_tran))]
     transaction_list_len = len(transaction_list)
 
     # faulty node list 
@@ -303,4 +302,4 @@ if __name__ == '__main__':
     # print(f)
     req_n = (2*f) + 1
     
-    network(transaction_pool_len, nod, transaction_pool, directory_log, nodi, req_n, transaction_list_len, f_node_list)
+    network(transaction_pool_len, nod, transaction_pool, directory_log, nodi, req_n, transaction_list_len, f_node_list, datarate)
