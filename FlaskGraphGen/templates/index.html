@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Fanet Blockchain - Throughput & Delay</title>
+    <!-- Load Plotly.js from CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
+    <link href="https://cdn.datatables.net/buttons/2.2.2/css/buttons.dataTables.min.css" rel="stylesheet" />
+    <link href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap5.min.css" rel="stylesheet" />
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.2.2/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.print.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.colVis.min.js"></script>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+    <div class='row'>
+        <h2>Throughput & Delay Vs Node</h2>
+        <div class='col-md-6'>
+            <div id="throughput_n_delay_vs_node_data50"></div>
+        </div>
+        <div class='col-md-6'>
+            <div id="throughput_n_delay_vs_node_data150"></div>
+        </div>
+    </div>
+    <div class=row>
+        <div class='col-md-6'>
+            <div id="throughput_n_delay_vs_node_data300"></div>
+        </div>
+        <div class='col-md-6'>
+            <div id="throughput_n_delay_vs_node_data500"></div>
+        </div>
+        <div class='col-md-6'>
+            <div id="throughput_n_delay_vs_node_data100"></div>
+        </div>
+        <div class='col-md-6'>
+            <div id="throughput_n_delay_vs_node_data400"></div>
+        </div>
+    </div>
+    <div class='container'>
+        <table id='data_table_fixed_transaction' class="table table-striped">
+            <thead>
+              <tr>
+                <th>Node</th>
+                <th>Packet size</th>
+                <th>Transaction</th>
+                <th>Throughput</th>
+                <th>Delay</th>
+              </tr>
+            </thead>
+            <tbody id="table_body_fixed_transaction"></tbody>
+            <tfoot>
+                <tr>
+                    <th>Node</th>
+                    <th>Packet size</th>
+                    <th>Transaction</th>
+                    <th>Throughput</th>
+                    <th>Delay</th>
+                </tr>
+            </tfoot>
+          </table>
+    </div>
+    <br><br>
+    <div class='row'>
+        <h2>Throughput & Delay Vs Transactions</h2>
+        <div class='col-md-6'>
+            <div id="throughput_n_delay_vs_transaction_data30"></div>
+        </div>
+        <div class='col-md-6'>
+            <div id="throughput_n_delay_vs_transaction_data5"></div>
+        </div>
+    </div>
+    <div class=row>
+        <div class='col-md-6'>
+            <div id="throughput_n_delay_vs_transaction_data20"></div>
+        </div>
+
+        <div class='col-md-6'>
+            <div id="throughput_n_delay_vs_transaction_data50"></div>
+        </div>
+    </div>
+    <div>
+        <div class='col-md-6'>
+            <div id="throughput_n_delay_vs_transaction_data10"></div>
+        </div>
+    </div>
+
+    <div class='container'>
+        <table id='data_table_fixed_node' class="table table-striped">
+            <thead>
+              <tr>
+                <th>Node</th>
+                <th>Packet size</th>
+                <th>Transaction</th>
+                <th>Throughput</th>
+                <th>Delay</th>
+              </tr>
+            </thead>
+            <tbody id="table_body_fixed_node"></tbody>
+            <tfoot>
+                <tr>
+                    <th>Node</th>
+                    <th>Packet size</th>
+                    <th>Transaction</th>
+                    <th>Throughput</th>
+                    <th>Delay</th>
+                </tr>
+            </tfoot>
+          </table>
+    </div>
+
+    <script>
+        let throughput_n_delay_vs_node_data50 = {{throughput_n_delay_vs_node_data50 | safe}}
+        Plotly.plot('throughput_n_delay_vs_node_data50', throughput_n_delay_vs_node_data50, {})
+
+        let throughput_n_delay_vs_node_data150 = {{throughput_n_delay_vs_node_data150 | safe}}
+        Plotly.plot('throughput_n_delay_vs_node_data150', throughput_n_delay_vs_node_data150, {})
+
+        let throughput_n_delay_vs_node_data300 = {{throughput_n_delay_vs_node_data300 | safe}}
+        Plotly.plot('throughput_n_delay_vs_node_data300', throughput_n_delay_vs_node_data300, {})
+
+        let throughput_n_delay_vs_node_data500 = {{throughput_n_delay_vs_node_data500 | safe}}
+        Plotly.plot('throughput_n_delay_vs_node_data500', throughput_n_delay_vs_node_data500, {})
+
+        let throughput_n_delay_vs_node_data100 = {{throughput_n_delay_vs_node_data100 | safe}}
+        Plotly.plot('throughput_n_delay_vs_node_data100', throughput_n_delay_vs_node_data100, {})
+
+        let throughput_n_delay_vs_node_data400 = {{throughput_n_delay_vs_node_data400 | safe}}
+        Plotly.plot('throughput_n_delay_vs_node_data400', throughput_n_delay_vs_node_data400, {})
+
+
+
+
+
+        let throughput_n_delay_vs_transaction_data5 = {{throughput_n_delay_vs_transaction_data5 | safe}}
+        Plotly.plot('throughput_n_delay_vs_transaction_data5', throughput_n_delay_vs_transaction_data5, {})
+
+        let throughput_n_delay_vs_transaction_data10 = {{throughput_n_delay_vs_transaction_data10 | safe}}
+        Plotly.plot('throughput_n_delay_vs_transaction_data10', throughput_n_delay_vs_transaction_data10, {})
+
+        let throughput_n_delay_vs_transaction_data20 = {{throughput_n_delay_vs_transaction_data20 | safe}}
+        Plotly.plot('throughput_n_delay_vs_transaction_data20', throughput_n_delay_vs_transaction_data20, {})
+
+        let throughput_n_delay_vs_transaction_data30 = {{throughput_n_delay_vs_transaction_data30 | safe}}
+        Plotly.plot('throughput_n_delay_vs_transaction_data30', throughput_n_delay_vs_transaction_data30, {})
+
+        let throughput_n_delay_vs_transaction_data50 = {{throughput_n_delay_vs_transaction_data50 | safe}}
+        Plotly.plot('throughput_n_delay_vs_transaction_data50', throughput_n_delay_vs_transaction_data50, {})
+
+        $(document).ready(function() {
+            $.ajax({
+                url: "http://115.69.213.68:3040/data_fixed_transaction",
+                type: "GET",
+                dataType: "json",
+                success: function(data) {
+                    console.log(data);
+                    debugger;
+                    $.each(data, function(index, item) {
+                        $('#table_body_fixed_transaction').append(
+                            `<tr>
+                                <td>${item.node}</td>
+                                <td>${item.packet_size}</td>
+                                <td>${item.num_transaction}</td>
+                                <td>${item.throughput}</td>
+                                <td>${item.delay}</td>
+                            </tr>`
+                        );
+                    });
+                    $('#data_table_fixed_transaction').DataTable({
+                        dom: 'Bfrtip',
+                        buttons: [
+                            'csv', 'excel', 'pdf', 'print'
+                        ],
+                        "order": [[2, "asc"]],
+                        "footer": true,
+                        "searching": true,
+                        "initComplete": function() {
+                            this.api().columns().every(function() {
+                                var column = this;
+                                var columnIndex = column.index();
+                                var headerText = $(column.header()).text().trim();
+                
+                                var footerCell = $(column.footer());
+                                $(footerCell).empty(); // Clear previous content
+                
+                                var input = $('<input type="text" placeholder="Search ' + headerText + '" />')
+                                    .on('keyup change', function() {
+                                        column.search($(this).val().trim(), false, false, true).draw();
+                                    });
+                
+                                $(input).appendTo($(footerCell));
+                            });
+                        }
+                    });
+                }
+            });
+
+            $.ajax({
+                url: "http://115.69.213.68:3040/data_fixed_node",
+                type: "GET",
+                dataType: "json",
+                success: function(data) {
+                    console.log(data);
+                    debugger;
+                    $.each(data, function(index, item) {
+                        $('#table_body_fixed_node').append(
+                            `<tr>
+                                <td>${item.node}</td>
+                                <td>${item.packet_size}</td>
+                                <td>${item.num_transaction}</td>
+                                <td>${item.throughput}</td>
+                                <td>${item.delay}</td>
+                            </tr>`
+                        );
+                    });
+                    $('#data_table_fixed_node').DataTable({
+                        dom: 'Bfrtip',
+                        buttons: [
+                            'csv', 'excel', 'pdf', 'print'
+                        ],
+                        "order": [[0, "asc"]],
+                        "footer": true,
+                        "searching": true,
+                        "initComplete": function() {
+                            this.api().columns().every(function() {
+                                var column = this;
+                                var columnIndex = column.index();
+                                var headerText = $(column.header()).text().trim();
+                
+                                var footerCell = $(column.footer());
+                                $(footerCell).empty(); // Clear previous content
+                
+                                var input = $('<input type="text" placeholder="Search ' + headerText + '" />')
+                                    .on('keyup change', function() {
+                                        column.search($(this).val().trim(), false, false, true).draw();
+                                    });
+                
+                                $(input).appendTo($(footerCell));
+                            });
+                        }
+                    });
+                }
+            });
+        });
+
+    </script>
+
+</body>
+</html>
+
